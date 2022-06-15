@@ -23,9 +23,9 @@ fn main() {
 
 fn enter_to_continue() {
 	{
-		let mut goober = String::new(); // goofy code
+		let mut goober = String::new(); 
         io::stdin().read_line(&mut goober).expect("error");
-		// i am not very good at rust
+		// this is not very good code
 	}
 }
 
