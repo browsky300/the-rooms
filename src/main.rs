@@ -1,13 +1,10 @@
 use std::io; // for read line
+use regex::Regex; // for splitting player input
 
 fn main() {
 
 	let mut stage_id = 0i8; // each stage has its own number, a room may have more than one stage.
 	let mut player_input = String::from("");
-
-
-
-
 
 	print_response(stage_id);
     enter_to_continue();
