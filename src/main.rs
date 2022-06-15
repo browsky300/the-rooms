@@ -1,5 +1,3 @@
-
-
 use std::io; // for read line
 
 fn main() {
