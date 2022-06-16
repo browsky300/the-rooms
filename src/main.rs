@@ -23,13 +23,13 @@ fn main() {
 		if stage_id == 255 { // if game is beaten
 			break;
 		}
-		printResponse(stage_id); // print text based on the stage id
+		print_response(stage_id); // print text based on the stage id
 		io::stdin().read_line(&mut player_input).expect("error"); // read player input
 		if stage_id == 0 {
 			stage_id = 1;
 			continue;
 		}
-		textParser(player_input); // parse it and return a tuple containing 2 words
+		text_parser(player_input); // parse it and return a tuple containing 2 words
 		stage_id = logicDecider(goob1, goob2, stage_id) // send the stage id and input data to the logic decider which will figure out what the player wanted to say and modify the stage id based on action
 	} */
 	
