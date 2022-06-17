@@ -17,14 +17,19 @@ fn main() {
 	print_response(stage_id); // these four lines are temporary and are incorporated into the main game loop. REMOVE WHEN GAME LOOP IS FINISHED
 
 
+<<<<<<< HEAD
 	/*
 	loop { // this is the main game loop
+=======
+
+	/* loop { // this is the main game loop, it's commented out for now as it's not finished
+>>>>>>> 0250315c6fa066460c572613321e64ce1bab3567
 		if stage_id == 255 { // if game is beaten
 			break;
 		}
 		print_response(stage_id); // print text based on the stage id
 		io::stdin().read_line(&mut player_input).expect("error"); // read player input
-		if stage_id == 0 {
+		if stage_id == 0 { // bypass the game logic flow if on the title screen
 			stage_id = 1;
 			continue;
 		}
@@ -42,8 +47,13 @@ fn enter_to_continue() {
 	};
 }
 
+<<<<<<< HEAD
 fn text_parser(input_string: &str) {
 	let mut result = input_string.split_whitespace();
+=======
+fn text_parser(input_string: String) { // take the input and split into two words, if not 2 words return error and ask for input again
+	
+>>>>>>> 0250315c6fa066460c572613321e64ce1bab3567
 }
 
 fn print_response(n: i8) { // refer to this to find out what the stage numbers mean
