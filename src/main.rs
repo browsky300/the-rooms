@@ -4,7 +4,6 @@
 #![allow(unused_mut)] // all of these are temporary and are used while the main() function isnt finished, REMOVE THESE LATER
 
 use std::io; // for read line
-use regex::Regex; // for splitting player input
 
 fn main() {
 
@@ -18,8 +17,8 @@ fn main() {
 	print_response(stage_id); // these four lines are temporary and are incorporated into the main game loop. REMOVE WHEN GAME LOOP IS FINISHED
 
 
-
-	/* loop { // this is the main game loop
+	/*
+	loop { // this is the main game loop
 		if stage_id == 255 { // if game is beaten
 			break;
 		}
@@ -30,7 +29,7 @@ fn main() {
 			continue;
 		}
 		text_parser(player_input); // parse it and return a tuple containing 2 words
-		stage_id = logicDecider(goob1, goob2, stage_id) // send the stage id and input data to the logic decider which will figure out what the player wanted to say and modify the stage id based on action
+		stage_id = logicDecider(goob1, goob2, stage_id) // send the stage id and input data to the logic decider which will figure out what the player wanted to say and modify the stage ID based on action
 	} */
 	
 }
@@ -43,8 +42,8 @@ fn enter_to_continue() {
 	};
 }
 
-fn text_parser(input_string: String) {
-	
+fn text_parser(input_string: &str) {
+	let mut result = input_string.split_whitespace();
 }
 
 fn print_response(n: i8) { // refer to this to find out what the stage numbers mean
