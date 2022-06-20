@@ -5,9 +5,9 @@
 
 use std::io; // for read line
 
-fn main() {
+fn main() { // real
 
-	let mut stage_id = 0i8; // each stage has its own number, a room may have more than one stage.
+	let mut stage_id = 0u8; // each stage has its own number, a room may have more than one stage.
 	let mut player_input = String::from("");
 
 
@@ -18,10 +18,7 @@ fn main() {
 		}
 		print_response(stage_id); // print text based on the stage id
 		io::stdin().read_line(&mut player_input).expect("error"); // read player input
-		if stage_id == 0 { // bypass the game logic flow if on the title screen
-			stage_id = 1;
-			continue;
-		}
+
 		// text_parser(player_input); // i need to figure out how to make this work
 		stage_id = logic_decider("goob1", "goob2", stage_id); // send the stage id and input data to the logic decider which will figure out what the player wanted to say and modify the stage ID based on action
 	}
@@ -36,44 +33,49 @@ fn enter_to_continue() {
 	};
 }
 
-fn text_parser(input_string: String) {
-	let mut result = input_string.split_whitespace();
+fn text_parser(input_string: String, id: u8) {
+	/*
+	match id {
+		0 => return "temp this should return tuple",
+		4 => return "temp code this should return the code instead",
+		_ => // text parser code
+	} */
 }
 
-fn print_response(n: i8) { // refer to this to find out what the stage numbers mean
-	let mut _response = String::from("");
+fn print_response(n: u8) { // refer to this to find out what the stage numbers mean
 	match n {
-		0 => _response = String::from("THE ROOMS\n\nsimple text adventure game in Rust.\n\nPRESS ENTER TO START"),
-		1 => _response = String::from("You awake on a comfortable bed PLACEHOLDER TEXT\n\nWhat do you do?"),
-		2 => _response = String::from("You find a key in between the couch cushions. It looks like it can be used to open the door.\n\nWhat do you do?"),
-		3 => _response = String::from("You use the key you found and open the door PLACEHOLDER TEXT WATCH THE NEWS"),
-		_ => _response = String::from("INVALID STAGE ID")
+		0 => println!("THE ROOMS\n\nsimple text adventure game in Rust.\n\nPRESS ENTER TO START"),
+		1 => println!("\nYou awake on a comfortable bed PLACEHOLDER TEXT\n\nWhat do you do?"), // first room
+		2 => println!("\nYou find a key in between the couch cushions. It looks like it can be used to open the door.\n\nWhat do you do?"),
+		3 => println!("\nYou use the key you found and open the door PLACEHOLDER TEXT WATCH THE NEWS\n\nWhat do you do?"), // second room
+		4 => println!("\nENTER CODE\n\n"),
+		5 => println!("\nTHIRD ROOM PLACEHOLDER TEXT\n\n"),
+		_ => println!("INVALID STAGE ID")
 	};
-	println!("{}\n", _response);
 }
 
-fn logic_decider(w1: &str, w2: &str, id: i8) -> i8 {
+fn logic_decider(w1: &str, w2: &str, id: u8) -> u8 {
 	match id {
 		1 => match w1 {
 			"search" | "look" | "check" | "see" => match w2 {
 				"bed" => {println!("There is nothing under the bed.");
 				return id;},
-				"couch" => {return 2i8;},
+				"couch" => {return 2u8;},
 				"door" => {println!("The door is locked.");
 				return id;},
 				"lamp" => {println!("The yellow light of the lamp illuminates the room. Unfortunately, there is no way to turn it off.");
 				return id;},
 				_ => {println!("Can't search that!");
 				return id;}
-			}
+			},
 			"open" => match w2 {
 				"door" => {println!("The door is locked.");
-				return id;}
+				return id;},
 				_ => {println!("Can't do that!");
 				return id;}
+			},
 			_ => {println!("Can't do that!");
 			return id;}
-			}
 		},
 		2 => match w1 {
 			"search" | "look" | "check" | "see" => match w2 {
@@ -92,17 +94,19 @@ fn logic_decider(w1: &str, w2: &str, id: i8) -> i8 {
 				"door" => {return 3;},
 				_ => {println!("Can't do that!");
 				return id;}
-			}
+			},
 			_ => {println!("Can't do that!");
 			return id;}
 		},
 		3 => match w1 {
 			"search" | "look" | "check" | "see" => match w2 {
-				"tv" | "television" | "monitor" => {println!("The flickering words on the TV read 'Watch the NEWS'. Turning the dials does nothing.");
+				"tv" | "television" | "monitor" | "screen" => {println!("The flickering words on the TV read 'Watch the NEWS'. Turning the dials does nothing.");
 				return id;},
 				"door" => {println!("The door is locked. There is no keyhole.");
 				return id;},
-				"keypad" | "device" | "numpad" => {return 4;}
+				"keypad" | "device" | "numpad" => {return 4;},
+				_ => {println!("Can't search that!");
+				return id;}
 			},
 			_ => {println!("Can't do that!");
 			return id;}
@@ -119,5 +123,4 @@ fn logic_decider(w1: &str, w2: &str, id: i8) -> i8 {
 		_ => {println!("error this should not happen");
 		return id;}
 	};
-	return 0;
 }
