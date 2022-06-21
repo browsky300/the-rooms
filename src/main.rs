@@ -47,7 +47,7 @@ fn print_response(n: u8) { // refer to this to find out what the stage numbers m
 		0 => println!("THE ROOMS\n\nsimple text adventure game in Rust.\n\nPRESS ENTER TO START"),
 		1 => println!("\nYou awake on a comfortable bed PLACEHOLDER TEXT\n\nWhat do you do?"), // first room
 		2 => println!("\nYou find a key in between the couch cushions. It looks like it can be used to open the door.\n\nWhat do you do?"),
-		3 => println!("\nYou use the key you found and open the door PLACEHOLDER TEXT WATCH THE NEWS\n\nWhat do you do?"), // second room
+		3 => println!("\n PLACEHOLDER TEXT WATCH THE NEWS\n\nWhat do you do?"), // second room
 		4 => println!("\nENTER CODE\n\n"),
 		5 => println!("\nTHIRD ROOM PLACEHOLDER TEXT\n\n"),
 		_ => println!("INVALID STAGE ID")
@@ -61,7 +61,7 @@ fn logic_decider(w1: &str, w2: &str, id: u8) -> u8 {
 			"search" | "look" | "check" | "see" => match w2 {
 				"bed" => {println!("There is nothing under the bed.");
 				return id;},
-				"couch" => {println!("Found a key!")
+				"couch" => {println!("Found a key!");
 				return 2;},
 				"door" => {println!("The door is locked.");
 				return id;},
