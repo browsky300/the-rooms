@@ -1,7 +1,5 @@
 #![allow(dead_code)]
-#![allow(unused_variables)]
-#![allow(unused_imports)]
-#![allow(unused_mut)] // all of these are temporary and are used while the main() function isnt finished, REMOVE THESE LATER
+#![allow(unused_variables)] // all of these are temporary and are used while the main() function isnt finished, REMOVE THESE LATER
 
 use std::io; // for read line
 
@@ -20,8 +18,11 @@ fn main() { // real
 		io::stdin().read_line(&mut player_input).expect("error"); // read player input
 
 		// text_parser(player_input); // i need to figure out how to make this work
-		stage_id = logic_decider("goob1", "goob2", stage_id); // send the stage id and input data to the logic decider which will figure out what the player wanted to say and modify the stage ID based on action
+		stage_id = logic_decider("search", "couch", stage_id); // send the stage id and input data to the logic decider which will figure out what the player wanted to say and modify the stage ID based on action
 	}
+
+	println!("Thanks for playing!");
+	enter_to_continue();
 	
 }
 
@@ -37,7 +38,6 @@ fn text_parser(input_string: String, id: u8) {
 	/*
 	match id {
 		0 => return "temp this should return tuple",
-		4 => return "temp code this should return the code instead",
 		_ => // text parser code
 	} */
 }
@@ -56,11 +56,13 @@ fn print_response(n: u8) { // refer to this to find out what the stage numbers m
 
 fn logic_decider(w1: &str, w2: &str, id: u8) -> u8 {
 	match id {
+		0 => return 1,
 		1 => match w1 {
 			"search" | "look" | "check" | "see" => match w2 {
 				"bed" => {println!("There is nothing under the bed.");
 				return id;},
-				"couch" => {return 2u8;},
+				"couch" => {println!("Found a key!")
+				return 2;},
 				"door" => {println!("The door is locked.");
 				return id;},
 				"lamp" => {println!("The yellow light of the lamp illuminates the room. Unfortunately, there is no way to turn it off.");
@@ -91,7 +93,8 @@ fn logic_decider(w1: &str, w2: &str, id: u8) -> u8 {
 				return id;}
 			},
 			"open" => match w2 {
-				"door" => {return 3;},
+				"door" => {println!("You insert the key into the door, and it swings open.");
+				return 3;},
 				_ => {println!("Can't do that!");
 				return id;}
 			},
@@ -104,7 +107,7 @@ fn logic_decider(w1: &str, w2: &str, id: u8) -> u8 {
 				return id;},
 				"door" => {println!("The door is locked. There is no keyhole.");
 				return id;},
-				"keypad" | "device" | "numpad" => {return 4;},
+				"keypad" | "device" | "numpad" => return 4,
 				_ => {println!("Can't search that!");
 				return id;}
 			},
@@ -112,15 +115,12 @@ fn logic_decider(w1: &str, w2: &str, id: u8) -> u8 {
 			return id;}
 		},
 		4 => match w1 {
-			"enter" => match w2 {
-				"9362" => {return 5;},
-				_ => {println!("INCORRECT CODE");
-				return 3;}
-			},
-			_ => {println!("error this should not happen"); // this should be autofilled so if this condition is triggered something bad happened
-			return id;}
+			"9362" => {println!("CODE CORRECT\n\nYou hear a quiet thud, and the thick metal door swings open.");
+			return 255;}, // temp id to stop the game, i want to write text parser first
+			_ => {println!("CODE INCORRECT");
+			return 3;}
 		},
-		_ => {println!("error this should not happen");
+		_ => {println!("ERROR INVALID STAGE ID, this should not happen");
 		return id;}
 	};
 }
