@@ -2,22 +2,23 @@
 #![allow(unused_variables)] // all of these are temporary and are used while the main() function isnt finished, REMOVE THESE LATER
 
 use std::io; // for read line
+use std::str;
 
 fn main() { // real
 
 	let mut stage_id = 0u8; // each stage has its own number, a room may have more than one stage.
 	let mut player_input = String::from("");
+	//let mut return_array
 
 
 
 	loop { // this is the main game loop
-		if stage_id == 255 { // if game is beaten
+		if stage_id == 255 {
 			break;
-		}
+		};
 		print_response(stage_id); // print text based on the stage id
 		io::stdin().read_line(&mut player_input).expect("error"); // read player input
-
-		// text_parser(player_input); // i need to figure out how to make this work
+		text_parser(player_input, stage_id);
 		stage_id = logic_decider("search", "couch", stage_id); // send the stage id and input data to the logic decider which will figure out what the player wanted to say and modify the stage ID based on action
 	}
 
@@ -34,12 +35,15 @@ fn enter_to_continue() {
 	};
 }
 
-fn text_parser(input_string: String, id: u8) {
-	/*
-	match id {
-		0 => return "temp this should return tuple",
-		_ => // text parser code
-	} */
+fn text_parser(player_input: String, stage_id: u8) -> [String, String] {
+	match stage_id {
+		// 0 =>
+		// 4 =>
+		_ => {
+			let split = player_input.split(" ");
+			let mut input_list = [String::new, String::new];
+		}
+	}
 }
 
 fn print_response(n: u8) { // refer to this to find out what the stage numbers mean
@@ -50,6 +54,7 @@ fn print_response(n: u8) { // refer to this to find out what the stage numbers m
 		3 => println!("\n PLACEHOLDER TEXT WATCH THE NEWS\n\nWhat do you do?"), // second room
 		4 => println!("\nENTER CODE\n\n"),
 		5 => println!("\nTHIRD ROOM PLACEHOLDER TEXT\n\n"),
+		255 => println!("\nThanks for playing!\n\n"),
 		_ => println!("INVALID STAGE ID")
 	};
 }
