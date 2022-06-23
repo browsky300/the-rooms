@@ -8,6 +8,7 @@ fn main() { // real
 
 	let mut stage_id = 0u8; // each stage has its own number, a room may have more than one stage.
 	let mut player_input = String::from("");
+	let mut parsed_input_arr = [String::new(), String::new()];
 	//let mut return_array
 
 
@@ -18,7 +19,10 @@ fn main() { // real
 		};
 		print_response(stage_id); // print text based on the stage id
 		io::stdin().read_line(&mut player_input).expect("error"); // read player input
-		// stage_id = logic_decider(parsed_input_arr[0], parsed_input_arr[1], stage_id); // send the stage id and input data to the logic decider which will figure out what the player wanted to say and modify the stage ID based on action
+		parsed_input_arr = [String::new(), String::new()];
+		parsed_input_arr = text_parser(player_input.clone(), stage_id);
+		println!("word 1 is ({}), word2 is ({})", parsed_input_arr[0], parsed_input_arr[1]);
+		stage_id = logic_decider(parsed_input_arr[0].as_str(), parsed_input_arr[1].as_str(), stage_id); // send the stage id and input data to the logic decider which will figure out what the player wanted to say and modify the stage ID based on action
 	}
 
 	println!("Thanks for playing!");
@@ -34,8 +38,13 @@ fn enter_to_continue() {
 	};
 }
 
-fn text_parser(input_ref: String, stage_id: u8) {
-
+fn text_parser(input_ref: String, stage_id: u8) -> [String; 2] {
+	let input_copy = input_ref.clone();
+	let split = input_copy.split(" ");
+	let mut input_vec: Vec<&str> = split.collect(); // this is bad but i dont care
+	input_vec.push("invalid");
+	input_vec.push("invalid");
+	return [String::from(input_vec[0]), String::from(input_vec[1])];
 }
 
 fn print_response(n: u8) { // refer to this to find out what the stage numbers mean
@@ -51,6 +60,7 @@ fn print_response(n: u8) { // refer to this to find out what the stage numbers m
 }
 
 fn logic_decider(w1: &str, w2: &str, id: u8) -> u8 {
+	println!();
 	match id {
 		0 => return 1,
 		1 => match w1 {
