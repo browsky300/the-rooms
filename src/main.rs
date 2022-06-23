@@ -18,8 +18,7 @@ fn main() { // real
 		};
 		print_response(stage_id); // print text based on the stage id
 		io::stdin().read_line(&mut player_input).expect("error"); // read player input
-		text_parser(player_input, stage_id);
-		stage_id = logic_decider("search", "couch", stage_id); // send the stage id and input data to the logic decider which will figure out what the player wanted to say and modify the stage ID based on action
+		// stage_id = logic_decider(parsed_input_arr[0], parsed_input_arr[1], stage_id); // send the stage id and input data to the logic decider which will figure out what the player wanted to say and modify the stage ID based on action
 	}
 
 	println!("Thanks for playing!");
@@ -35,15 +34,8 @@ fn enter_to_continue() {
 	};
 }
 
-fn text_parser(player_input: String, stage_id: u8) -> [String, String] {
-	match stage_id {
-		// 0 =>
-		// 4 =>
-		_ => {
-			let split = player_input.split(" ");
-			let mut input_list = [String::new, String::new];
-		}
-	}
+fn text_parser(input_ref: String, stage_id: u8) {
+
 }
 
 fn print_response(n: u8) { // refer to this to find out what the stage numbers mean
@@ -54,7 +46,6 @@ fn print_response(n: u8) { // refer to this to find out what the stage numbers m
 		3 => println!("\n PLACEHOLDER TEXT WATCH THE NEWS\n\nWhat do you do?"), // second room
 		4 => println!("\nENTER CODE\n\n"),
 		5 => println!("\nTHIRD ROOM PLACEHOLDER TEXT\n\n"),
-		255 => println!("\nThanks for playing!\n\n"),
 		_ => println!("INVALID STAGE ID")
 	};
 }
