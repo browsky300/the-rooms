@@ -9,6 +9,8 @@ fn main() { // real
 	let mut stage_id = 0u8; // each stage has its own number, a room may have more than one stage.
 	let mut player_input = String::from("");
 	let mut parsed_input_arr = [String::new(), String::new()];
+	let mut word1 = String::new()
+	let mut word2 = String::new()
 	//let mut return_array
 
 
@@ -19,10 +21,11 @@ fn main() { // real
 		};
 		print_response(stage_id); // print text based on the stage id
 		io::stdin().read_line(&mut player_input).expect("error"); // read player input
-		parsed_input_arr = [String::new(), String::new()];
 		parsed_input_arr = text_parser(player_input.clone(), stage_id);
-		println!("word 1 is ({}), word2 is ({})", parsed_input_arr[0], parsed_input_arr[1]);
-		stage_id = logic_decider(parsed_input_arr[0].as_str(), parsed_input_arr[1].as_str(), stage_id); // send the stage id and input data to the logic decider which will figure out what the player wanted to say and modify the stage ID based on action
+		word1 = parsed_input_arr[0].clone();
+		word2 = parsed_input_arr[1].clone();
+		println!("word 1 is ({}), word2 is ({})", word1, word2);
+		stage_id = logic_decider(word1.as_str(), word1.as_str(), stage_id); // send the stage id and input data to the logic decider which will figure out what the player wanted to say and modify the stage ID based on action
 	}
 
 	println!("Thanks for playing!");
@@ -128,5 +131,16 @@ fn logic_decider(w1: &str, w2: &str, id: u8) -> u8 {
 		},
 		_ => {println!("ERROR INVALID STAGE ID, this should not happen");
 		return id;}
+		5 => match w1 {
+			"search" | "look" | "check" | "see" => match w2 {
+				"bomb" => {println!("A bomb with a keypad. It's better not to touch this right now.");
+				return id;}
+				"briefcase" => {println!("A locked briefcase. There is a keyhole on the outside.");
+				return id;}
+				"statue" => {println!("A bronze statue. Next to it there is a nameplate that says 'Goliath'. It doesn't seem like it will help with getting out of here.");
+				return id;},
+
+			}
+		}
 	};
 }
