@@ -1,12 +1,14 @@
 use std::io; // for read line
 use std::str;
 
-fn main() { // real
+fn main() {
 
 	let mut stage_id = 0u8; // each stage has its own number, a room may have more than one stage.
 	loop { // this is the main game loop
 		let mut player_input = String::from("");
 		if stage_id == 255 {
+			println!("Thanks for playing!");
+			io::stdin().read_line(&mut player_input).expect("error");
 			break;
 		};
 		print_response(stage_id); // print text based on the stage id
@@ -16,42 +18,27 @@ fn main() { // real
 		ivec.push("filler");
 		stage_id = logic_decider(ivec[0].clone().trim(), ivec[1].clone().trim(), stage_id);
 	}
-
-	println!("Thanks for playing!");
-	enter_to_continue();
-	
-}
-
-fn enter_to_continue() {
-	{
-		let mut goober = String::new(); 
-        io::stdin().read_line(&mut goober).expect("error");
-		// this is not very good code
-	};
 }
 
 fn print_response(id: u8) { // refer to this to find out what the stage numbers mean
 	match id {
 		0 => println!("THE ROOMS\n\nsimple text adventure game in Rust.\n\nPRESS ENTER TO START\n"),
-		1 => println!("\nWhat do you do?\n"), // first room
-		2 => println!("\nIt looks like this key can be used to open the door.\n\nWhat do you do?\n"),
-		3 => println!("\nWhat do you do?\n"), // second room
+		1 | 2 | 3 | 5 => println!("\nWhat do you do?\n"), // first room
 		4 => println!("\nENTER CODE\n"),
-		5 => println!("\nTHIRD ROOM PLACEHOLDER TEXT\n"),
-		_ => println!("INVALID STAGE ID")
+		_ => println!("INVALID STAGE ID (this should not happen)")
 	};
 }
 
 fn logic_decider(w1: &str, w2: &str, id: u8) -> u8 {
 	println!();
 	match id {
-		0 => {println!("\nYou awake on a comfortable bed, but find yourself in an\nuncomfortable room that you don't recognize. In it is the bed,\na beige couch, a tall lamp, and a wooden door on the wall.");
+		0 => {println!("\nYou awake on a comfortable bed, but find yourself in a room that you don't recognize.\nIn it is the bed, a beige couch, a tall lamp, and a wooden door on the wall.");
 		return 1;}
 		1 => match w1 {
 			"search" | "look" | "check" | "see" => match w2 {
 				"bed" => {println!("There is nothing under the bed.");
 				return id;},
-				"couch" => {println!("Found a key!");
+				"couch" => {println!("Found a key! It looks like it can open the door.");
 				return 2;},
 				"door" => {println!("The door is locked.");
 				return id;},
@@ -106,7 +93,7 @@ fn logic_decider(w1: &str, w2: &str, id: u8) -> u8 {
 		},
 		4 => match w1 {
 			"9362" => {println!("CODE CORRECT\n\nYou hear a quiet thud, and the thick metal door swings open.");
-			return 255;}, // temp id to stop the game, i want to write text parser first
+			return 5;},
 			_ => {println!("CODE INCORRECT");
 			return 3;}
 		},
