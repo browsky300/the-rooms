@@ -23,16 +23,15 @@ fn main() {
 fn print_response(id: u8) { // refer to this to find out what the stage numbers mean
 	match id {
 		0 => println!("THE ROOMS\n\nsimple text adventure game in Rust.\n\nPRESS ENTER TO START\n"),
-		1 | 2 | 3 | 5 => println!("\nWhat do you do?\n"), // first room
 		4 => println!("\nENTER CODE\n"),
-		_ => println!("INVALID STAGE ID (this should not happen)")
+		_ => println!("\nWhat do you do?\n")
 	};
 }
 
 fn logic_decider(w1: &str, w2: &str, id: u8) -> u8 {
 	println!();
 	match id {
-		0 => {println!("\nYou awake on a comfortable bed, but find yourself in a room that you don't recognize.\nIn it is the bed, a beige couch, a tall lamp, and a wooden door on the wall.");
+		0 => {println!("You awake on a comfortable bed, but find yourself in a room that you don't recognize. In it is the\nbed, a beige couch, a tall lamp, and a wooden door on the wall.");
 		return 1;}
 		1 => match w1 {
 			"search" | "look" | "check" | "see" => match w2 {
@@ -70,7 +69,7 @@ fn logic_decider(w1: &str, w2: &str, id: u8) -> u8 {
 				return id;}
 			},
 			"open" => match w2 {
-				"door" => {println!("You insert the key into the door, and it swings open. Beyond the door is a ");
+				"door" => {println!("You insert the key into the door, and it swings open. Beyond the door is a much smaller and darker\nroom. In the corner there is a small tv that shows the words 'Watch the NEWS'. On the ground is an\narrow that looks to signify north. On the north wall is a metal door, a keypad, and the number 9\nwritten in red paint. Similarly, the east wall has a 9, the south wall has a 2, and the west wall\nhas a 6.");
 				return 3;},
 				_ => {println!("Can't do that!");
 				return id;}
@@ -85,6 +84,16 @@ fn logic_decider(w1: &str, w2: &str, id: u8) -> u8 {
 				"door" => {println!("The door is locked. There is no keyhole.");
 				return id;},
 				"keypad" | "device" | "numpad" => return 4,
+				"wall" | "walls" | "numbers" => {println!("The north wall has a 9, the east wall has a 3, the south wall has a 2 and the west wall has a 6.");
+				return id;},
+				"north" => {println!("The north wall has a 9.");
+				return id;},
+				"east" => {println!("The east wall has a 3.");
+				return id;},
+				"south" => {println!("The south wall has a 2.");
+				return id;},
+				"west" => {println!("The north wall has a 6.");
+				return id;},
 				_ => {println!("Can't search that!");
 				return id;}
 			},
@@ -103,7 +112,7 @@ fn logic_decider(w1: &str, w2: &str, id: u8) -> u8 {
 				return id;},
 				"briefcase" => {println!("A locked briefcase. There is a keyhole on the outside.");
 				return id;},
-				"statue" => {println!("A bronze statue. Next to it there is a nameplate that says 'Goliath'. It doesn't seem like it will help with getting out of here.");
+				"statue" => {println!("A bronze statue. Next to it there is a nameplate that says 'Goliath'. It doesn't seem like it will\nhelp with getting out of here.");
 				return id;},
 				_ => {println!("Can't search that!");
 				return id;}
