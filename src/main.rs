@@ -1,6 +1,6 @@
 use std::io;
 
-const VERSION: &str = "0.1.0";
+const VERSION: &str = "1.0.0-RC1";
 
 fn main() {
 	let mut stage_id: u8 = 0; // each stage has its own number, a room may have more than one stage
